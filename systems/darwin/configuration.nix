@@ -32,6 +32,11 @@
         QuitMenuItem = true;
         ShowPathbar = true;
       };
+
+      NSGlobalDomain = {
+        AppleShowAllFiles = true;
+        AppleShowAllExtensions = true;
+      };
     };
 
     stateVersion = 4;
