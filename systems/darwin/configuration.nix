@@ -19,7 +19,16 @@
 
   services.nix-daemon.enable = true;
 
-  system.stateVersion = 4;
+  system = {
+    defaults = {
+      dock = {
+        show-recents = false;
+        tilesize = 85;
+      };
+    };
+
+    stateVersion = 4;
+  };
 
   users.users."${vars.user}" = {
     name = "${vars.user}";
