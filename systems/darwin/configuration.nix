@@ -25,6 +25,13 @@
         show-recents = false;
         tilesize = 85;
       };
+
+      finder = {
+        AppleShowAllFiles = true;
+        AppleShowAllExtensions = true;
+        QuitMenuItem = true;
+        ShowPathbar = true;
+      };
     };
 
     stateVersion = 4;
