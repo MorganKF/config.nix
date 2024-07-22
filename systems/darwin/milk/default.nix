@@ -1,10 +1,15 @@
-{ pkgs-unstable, ... }: {
+{ pkgs, ... }:
+{
 
-  environment.systemPackages = with pkgs-unstable; [ aws-vault ];
+  environment.systemPackages = with pkgs; [ aws-vault ];
 
   homebrew = {
     taps = [ ];
     brews = [ ];
-    casks = [ "mongodb-compass" "docker" "postman" ];
+    casks = [
+      "mongodb-compass"
+      "docker"
+      "postman"
+    ];
   };
 }

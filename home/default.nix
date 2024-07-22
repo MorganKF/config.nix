@@ -1,4 +1,4 @@
-{ pkgs-unstable, ... }:
+{ pkgs, ... }:
 let
   envVars = {
     EDITOR = "nvim";
@@ -10,14 +10,12 @@ in
     home-manager.enable = true;
     nushell = {
       enable = true;
-      package = pkgs-unstable.nushell;
       environmentVariables = envVars;
       extraConfig = builtins.readFile ./dots/nushell/config.nu;
       extraEnv = builtins.readFile ./dots/nushell/env.nu;
     };
     neovim = {
       enable = true;
-      package = pkgs-unstable.neovim-unwrapped;
     };
     carapace.enable = true;
     zoxide.enable = true;
@@ -35,7 +33,7 @@ in
   };
 
   home = {
-    packages = with pkgs-unstable; [ just ];
+    packages = with pkgs; [ just ];
     sessionVariables = envVars;
     stateVersion = "24.05";
   };

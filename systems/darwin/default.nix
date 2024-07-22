@@ -1,7 +1,7 @@
 {
   inputs,
   nixpkgs,
-  nixpkgs-unstable,
+  nixpkgs-stable,
   nix-darwin,
   home-manager,
   vars,
@@ -15,7 +15,7 @@ let
     config.allowUnfree = true;
   };
 
-  pkgs-unstable = import nixpkgs-unstable {
+  pkgs-stable = import nixpkgs-stable {
     inherit system;
     config.allowUnfree = true;
   };
@@ -27,7 +27,7 @@ in
       inherit
         inputs
         pkgs
-        pkgs-unstable
+        pkgs-stable
         system
         vars
         ;
@@ -40,7 +40,7 @@ in
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = {
-          inherit pkgs-unstable;
+          inherit pkgs-stable;
         };
         home-manager.users."${vars.user}" = {
           imports = [
