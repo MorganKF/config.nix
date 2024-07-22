@@ -1,4 +1,9 @@
-{ vars, ... }:
+{
+  lib,
+  pkgs,
+  vars,
+  ...
+}:
 {
   nix.settings.experimental-features = "nix-command flakes";
   nix.gc.automatic = true;
@@ -10,9 +15,8 @@
   users.users."${vars.user}" = {
     name = "${vars.user}";
     home = "/Users/${vars.user}";
+    shell = lib.getExe pkgs.nushell;
   };
-
-  programs.zsh.enable = true;
 
   environment.systemPackages = [ ];
 

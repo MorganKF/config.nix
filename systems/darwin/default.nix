@@ -1,27 +1,19 @@
-{
-  inputs,
-  nixpkgs,
-  nixpkgs-stable,
-  nix-darwin,
-  home-manager,
-  vars,
-  ...
-}:
+{ inputs, vars, ... }:
 let
   system = "aarch64-darwin";
 
-  pkgs = import nixpkgs {
+  pkgs = import inputs.nixpkgs {
     inherit system;
     config.allowUnfree = true;
   };
 
-  pkgs-stable = import nixpkgs-stable {
+  pkgs-stable = import inputs.nixpkgs-stable {
     inherit system;
     config.allowUnfree = true;
   };
 in
 {
-  milk = nix-darwin.lib.darwinSystem {
+  milk = inputs.nix-darwin.lib.darwinSystem {
     inherit system;
     specialArgs = {
       inherit
@@ -35,7 +27,7 @@ in
     modules = [
       ./milk
       ./configuration.nix
-      home-manager.darwinModules.home-manager
+      inputs.home-manager.darwinModules.home-manager
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;

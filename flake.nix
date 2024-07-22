@@ -13,13 +13,7 @@
   };
 
   outputs =
-    inputs@{
-      nixpkgs,
-      nixpkgs-stable,
-      nix-darwin,
-      home-manager,
-      ...
-    }:
+    { nixpkgs, ... }@inputs:
     let
       vars = {
         user = "morgan";
@@ -29,14 +23,7 @@
       darwinConfigurations = (
         import ./systems/darwin {
           inherit (nixpkgs) lib;
-          inherit
-            inputs
-            nixpkgs
-            nixpkgs-stable
-            nix-darwin
-            home-manager
-            vars
-            ;
+          inherit inputs vars;
         }
       );
 
