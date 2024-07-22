@@ -1,4 +1,4 @@
-{ user, ... }:
+{ vars, ... }:
 {
   nix.settings.experimental-features = "nix-command flakes";
   nix.gc.automatic = true;
@@ -7,9 +7,9 @@
 
   system.stateVersion = 4;
 
-  users.users."${user}" = {
-    name = "${user}";
-    home = "/Users/${user}";
+  users.users."${vars.user}" = {
+    name = "${vars.user}";
+    home = "/Users/${vars.user}";
   };
 
   programs.zsh.enable = true;

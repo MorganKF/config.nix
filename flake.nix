@@ -21,7 +21,9 @@
       ...
     }:
     let
-      user = "morgan";
+      vars = {
+        user = "morgan";
+      };
     in
     {
       darwinConfigurations = (
@@ -33,7 +35,7 @@
             nixpkgs-unstable
             nix-darwin
             home-manager
-            user
+            vars
             ;
         }
       );

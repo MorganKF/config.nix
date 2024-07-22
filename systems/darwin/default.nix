@@ -4,7 +4,7 @@
   nixpkgs-unstable,
   nix-darwin,
   home-manager,
-  user,
+  vars,
   ...
 }:
 let
@@ -29,7 +29,7 @@ in
         pkgs
         pkgs-unstable
         system
-        user
+        vars
         ;
     };
     modules = [
@@ -42,7 +42,7 @@ in
         home-manager.extraSpecialArgs = {
           inherit pkgs-unstable;
         };
-        home-manager.users."${user}" = {
+        home-manager.users."${vars.user}" = {
           imports = [
             ../../home
             ./milk/home.nix
