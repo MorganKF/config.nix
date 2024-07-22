@@ -29,7 +29,6 @@ in
     starship.enable = true;
     direnv = {
       enable = true;
-      silent = true;
       nix-direnv.enable = true;
     };
     git.enable = true;
