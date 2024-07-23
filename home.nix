@@ -11,8 +11,7 @@ in
     nushell = {
       enable = true;
       environmentVariables = envVars;
-      extraConfig = builtins.readFile ./dots/nushell/config.nu;
-      extraEnv = builtins.readFile ./dots/nushell/env.nu;
+      extraConfig = builtins.readFile ./config/nushell/config.nu;
     };
     neovim = {
       enable = true;

@@ -36,7 +36,7 @@ in
         };
         home-manager.users."${vars.user}" = {
           imports = [
-            ../../home
+            ../../home.nix
             ./milk/home.nix
           ];
         };

@@ -36,7 +36,7 @@ in
         };
         home-manager.users.nixos = {
           imports = [
-            ../../home
+            ../../home.nix
           ];
         };
       }
