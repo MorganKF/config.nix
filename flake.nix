@@ -17,11 +17,28 @@
   };
 
   outputs =
-    { nixpkgs, ... }@inputs:
+    { nixpkgs, flake-parts, ... }@inputs:
     let
       vars = {
         user = "morgan";
       };
+      linuxSystems = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
+      darwinSystems = [
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+      forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
+      devShell =
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default = pkgs.mkShell { nativeBuildInputs = with pkgs; [ nixfmt-rfc-style ]; };
+        };
     in
     {
       nixosConfigurations = (
@@ -38,8 +55,6 @@
         }
       );
 
-      devShells.aarch64-darwin.default = nixpkgs.legacyPackages.aarch64-darwin.mkShell {
-        nativeBuildInputs = with nixpkgs.legacyPackages.aarch64-darwin; [ nixfmt-rfc-style ];
-      };
+      devShells = forAllSystems devShell;
     };
 }
