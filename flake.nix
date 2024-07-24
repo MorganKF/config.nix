@@ -17,7 +17,7 @@
   };
 
   outputs =
-    { nixpkgs, flake-parts, ... }@inputs:
+    { nixpkgs, ... }@inputs:
     let
       vars = {
         user = "morgan";
