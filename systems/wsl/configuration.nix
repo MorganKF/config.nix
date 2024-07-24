@@ -1,4 +1,4 @@
-{ vars, ... }:
+{ pkgs, vars, ... }:
 {
   nix = {
     settings.experimental-features = "nix-command flakes";
@@ -15,6 +15,7 @@
     name = "nixos";
     home = "/home/nixos";
     isNormalUser = true;
+    shell = pkgs.nushell;
   };
 
   environment.systemPackages = [ ];
