@@ -16,6 +16,7 @@ in
     neovim = {
       enable = true;
     };
+    nnn.enable = true;
     carapace.enable = true;
     zoxide.enable = true;
     ripgrep.enable = true;
