@@ -19,16 +19,30 @@ in
     helix = {
       enable = true;
       languages = {
+        language-server = {
+          typescript-language-server = {
+            command = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
+            args = [ "--stdio" ];
+          };
+          nil = {
+            command = "${pkgs.nil}/bin/nil";
+          };
+          zls = {
+            command = "${pkgs.zls}/bin/zls";
+          };
+        };
         language = [
           {
             name = "nix";
+            auto-format = true;
             formatter = {
-              command = "nixfmt";
+              command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
             };
           }
         ];
       };
       settings = {
+        theme = "nightfox";
         editor = {
           true-color = true;
         };
