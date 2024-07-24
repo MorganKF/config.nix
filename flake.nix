@@ -37,7 +37,10 @@
           pkgs = nixpkgs.legacyPackages.${system};
         in
         {
-          default = pkgs.mkShell { nativeBuildInputs = with pkgs; [ nixfmt-rfc-style ]; };
+          default = pkgs.mkShell {
+            nativeBuildInputs = with pkgs; [ nixfmt-rfc-style ];
+            packages = with pkgs; [ nil ];
+          };
         };
     in
     {
