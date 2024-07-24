@@ -16,6 +16,24 @@ in
     neovim = {
       enable = true;
     };
+    helix = {
+      enable = true;
+      languages = {
+        language = [
+          {
+            name = "nix";
+            formatter = {
+              command = "nixfmt";
+            };
+          }
+        ];
+      };
+      settings = {
+        editor = {
+          true-color = true;
+        };
+      };
+    };
     nnn.enable = true;
     carapace.enable = true;
     zoxide.enable = true;
