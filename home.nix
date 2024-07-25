@@ -23,6 +23,11 @@ in
           typescript-language-server = {
             command = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
             args = [ "--stdio" ];
+            config = {
+              tsserver = {
+                path = "${pkgs.nodePackages.typescript}/lib/node_modules/typescript/lib";
+              };
+            };
           };
           nil = {
             command = "${pkgs.nil}/bin/nil";
