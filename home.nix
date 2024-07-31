@@ -47,7 +47,7 @@ in
         ];
       };
       settings = {
-        theme = "nightfox";
+        theme = "dracula_at_night";
         editor = {
           true-color = true;
         };
