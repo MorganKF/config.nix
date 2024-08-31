@@ -38,6 +38,10 @@ in
         };
         language = [
           {
+            name = "cpp";
+            auto-format = true;
+          }
+          {
             name = "nix";
             auto-format = true;
             formatter = {
