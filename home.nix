@@ -10,7 +10,7 @@ in
     home-manager.enable = true;
     nushell = {
       enable = true;
-      environmentVariables = envVars;
+      # environmentVariables = envVars; Disabled util update fixes nushell varaible declaration
       extraConfig = builtins.readFile ./config/nushell/config.nu;
     };
     neovim = {
