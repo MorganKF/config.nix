@@ -32,9 +32,6 @@ in
           nil = {
             command = "${pkgs.nil}/bin/nil";
           };
-          zls = {
-            command = "${pkgs.zls}/bin/zls";
-          };
         };
         language = [
           {
