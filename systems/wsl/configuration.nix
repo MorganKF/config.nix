@@ -25,4 +25,6 @@
   system = {
     stateVersion = "24.05";
   };
+
+  programs.nix-ld.enable = true;
 }
