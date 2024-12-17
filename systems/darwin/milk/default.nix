@@ -4,12 +4,13 @@
   environment.systemPackages = with pkgs; [ aws-vault ];
 
   homebrew = {
-    taps = [ ];
-    brews = [ ];
+    taps = [];
+    brews = [];
     casks = [
       "mongodb-compass"
       "docker"
       "postman"
+      "1password-cli"
     ];
   };
 }
