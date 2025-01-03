@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-24.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-24.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
@@ -45,7 +45,7 @@
     in
     {
       nixosConfigurations = (
-        import ./systems/wsl {
+        import ./systems/nixos {
           inherit (nixpkgs) lib;
           inherit inputs vars;
         }
