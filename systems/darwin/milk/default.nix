@@ -1,11 +1,23 @@
-{ pkgs, ... }:
+{ vars, pkgs, ... }:
 {
 
   environment.systemPackages = with pkgs; [ aws-vault ];
 
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+    };
+  };
+
+  users.users."${vars.user}".openssh.authorizedkeys.keys = [
+    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIHyziKmJqEMI3C3/nV/lt32x0/ma1xfoKogmlHjbS+bjAAAADHNzaDp5dWJpa2V5NQ== ssh:yubikey5"
+  ];
+
   homebrew = {
-    taps = [];
-    brews = [];
+    taps = [ ];
+    brews = [ ];
     casks = [
       "mongodb-compass"
       "docker"
