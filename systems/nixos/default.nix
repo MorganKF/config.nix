@@ -18,7 +18,6 @@ in
     specialArgs = {
       inherit
         inputs
-        pkgs
         pkgs-stable
         system
         vars
@@ -32,8 +31,11 @@ in
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = {
-          inherit pkgs-stable;
+          inherit inputs pkgs-stable;
         };
+        home-manager.sharedModules = [
+          inputs.nixvim.homeManagerModules.nixvim
+        ];
         home-manager.users."${vars.user}" = {
           imports = [
             ../../home.nix

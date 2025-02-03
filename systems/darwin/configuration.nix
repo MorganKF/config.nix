@@ -48,13 +48,15 @@
 
   homebrew = {
     enable = true;
-    onActivation.cleanup = "uninstall";
+    onActivation.cleanup = "zap";
+    onActivation.autoUpdate = true;
+    onActivation.upgrade = true;
 
     taps = [ ];
     brews = [ ];
     casks = [
       "iterm2"
-      "font-jetbrains-mono-nerd-font"
+      "font-jetbrains-mono-nerd-font" # TODO: Install from nix nerdfont package
     ];
   };
 

@@ -14,6 +14,13 @@
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    neovim-nightly = {
+      url = "github:nix-community/neovim-nightly-overlay";
+    };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -45,7 +52,7 @@
     in
     {
       nixosConfigurations = (
-        import ./systems/nixos {
+        import ./systems/wsl {
           inherit (nixpkgs) lib;
           inherit inputs vars;
         }

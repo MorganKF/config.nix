@@ -8,6 +8,8 @@
     };
   };
 
+  wsl.enable = true;
+
   # Setup everything under the default nixos wsl user
   users.users.nixos = {
     name = "nixos";
