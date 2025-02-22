@@ -230,6 +230,7 @@ in
           };
         };
       };
+      plugins.ts-autotag.enable = true;
       plugins.grug-far = {
         enable = true;
         settings = {
@@ -263,6 +264,7 @@ in
           zls.enable = true;
           vtsls.enable = true;
           biome.enable = true;
+          tailwindcss.enable = true;
         };
       };
       plugins.lsp-lines = {
