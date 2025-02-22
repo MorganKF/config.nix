@@ -2,11 +2,6 @@
 let
   system = "x86_64-linux";
 
-  pkgs = import inputs.nixpkgs {
-    inherit system;
-    config.allowUnfree = true;
-  };
-
   pkgs-stable = import inputs.nixpkgs-stable {
     inherit system;
     config.allowUnfree = true;
