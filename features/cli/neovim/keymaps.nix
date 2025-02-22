@@ -217,7 +217,7 @@
         key = "<Tab>";
         action.__raw = "
           function()
-            vim.cmd((vim.bo.filetype == 'oil') and 'bd' or 'Oil')
+            vim.cmd((vim.bo.filetype == 'oil') and 'bp' or 'Oil')
           end
         ";
         options.desc = "Toggle file explorer";
