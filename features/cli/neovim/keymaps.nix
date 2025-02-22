@@ -35,6 +35,14 @@
         options.silent = true;
       }
 
+      # Close buffer
+      {
+        mode = "n";
+        action = "<cmd>bd<cr>";
+        key = "<leader>bd";
+        options.silent = true;
+      }
+
       # Better up/down
       {
         mode = [
