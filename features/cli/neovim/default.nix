@@ -70,26 +70,6 @@ in
         extensions = {
           fzf-native.enable = true;
         };
-        keymaps = {
-          "<leader><leader>" = {
-            action = "find_files";
-            options = {
-              desc = "Find files";
-            };
-          };
-          "<leader>/" = {
-            action = "live_grep";
-            options = {
-              desc = "Live grep";
-            };
-          };
-          "<leader>e" = {
-            action = "buffers";
-            options = {
-              desc = "Buffers";
-            };
-          };
-        };
       };
       plugins.blink-cmp = {
         enable = true;

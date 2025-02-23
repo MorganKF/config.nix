@@ -331,5 +331,26 @@
         }
       ];
     };
+
+    plugins.telescope.keymaps = {
+      "<leader><leader>" = {
+        action = "find_files";
+        options = {
+          desc = "Find files";
+        };
+      };
+      "<leader>/" = {
+        action = "live_grep";
+        options = {
+          desc = "Live grep";
+        };
+      };
+      "<leader>E" = {
+        action = "buffers";
+        options = {
+          desc = "Buffers";
+        };
+      };
+    };
   };
 }
