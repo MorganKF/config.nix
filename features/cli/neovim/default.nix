@@ -15,6 +15,7 @@ in
   imports = [
     ./keymaps.nix
     ./autocmds.nix
+    ./harpoon.nix
   ];
 
   config = mkIf neovim.enable {
