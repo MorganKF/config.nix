@@ -1,9 +1,7 @@
-{ pkgs, ... }:
 {
-  imports =
-    [ 
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
@@ -42,8 +40,6 @@
 
   # Install firefox.
   programs.firefox.enable = true;
-  programs.neovim.enable = true;
-  programs.neovim.defaultEditor = true;
 
   programs.nix-ld.enable = true;
 
