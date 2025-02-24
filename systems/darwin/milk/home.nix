@@ -11,6 +11,9 @@
     };
   };
 
+  # Disable git managment on MacOS
+  programs.git.enable = false;
+
   home = {
     packages = [ ];
   };

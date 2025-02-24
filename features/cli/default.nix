@@ -14,6 +14,6 @@
     fzf.enable = true;
     zellij.enable = true;
     bat.enable = true;
-    git.enable = true;
+    git.enable = lib.mkDefault true;
   };
 }
