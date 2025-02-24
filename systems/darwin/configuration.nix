@@ -19,6 +19,7 @@
       dock = {
         show-recents = false;
         tilesize = 85;
+        autohide = true;
       };
 
       finder = {
@@ -36,6 +37,9 @@
 
     stateVersion = 4;
   };
+
+  # Enable terminal touch id instead of passwd
+  security.pam.enableSudoTouchIdAuth = true;
 
   users.users."${vars.user}" = {
     name = "${vars.user}";
@@ -59,6 +63,4 @@
       "font-jetbrains-mono-nerd-font" # TODO: Install from nix nerdfont package
     ];
   };
-
-  security.pam.enableSudoTouchIdAuth = true;
 }
