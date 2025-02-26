@@ -1,8 +1,7 @@
-{ vars, ... }:
+{ vars, pkgs, ... }:
 {
   nix.settings.experimental-features = "nix-command flakes";
   nix.gc = {
-    user = "root";
     automatic = true;
     interval = {
       Weekday = 0;
@@ -11,8 +10,6 @@
     };
     options = "--delete-older-than 30d";
   };
-
-  services.nix-daemon.enable = true;
 
   system = {
     defaults = {
@@ -39,7 +36,7 @@
   };
 
   # Enable terminal touch id instead of passwd
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   users.users."${vars.user}" = {
     name = "${vars.user}";
