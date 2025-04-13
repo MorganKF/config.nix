@@ -257,14 +257,8 @@ in
           zls.enable = true;
           vtsls = {
             enable = true;
-            autostart.__raw = ''
-              function()
-                local fname = vim.api.nvim_buf_get_name(0)
-                local ts_root = require('lspconfig.util').root_pattern('package.json', 'tsconfig.json', 'jsconfig.json')(fname)
-                local deno_root = require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')(fname)
-                return ts_root ~= nil and deno_root == nil
-              end
-            '';
+            # Autostart with autocmd
+            autostart = false;
           };
           denols = {
             enable = true;
