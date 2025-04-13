@@ -31,6 +31,9 @@ in
       globals = {
         mapleader = " ";
         maplocalleader = "\\";
+        markdown_fenced_languages = [
+          "ts=typescript"
+        ];
       };
       opts = {
         number = true;
@@ -252,7 +255,25 @@ in
           nil_ls.enable = true;
           nushell.enable = true;
           zls.enable = true;
-          vtsls.enable = true;
+          vtsls = {
+            enable = true;
+            autostart.__raw = ''
+              function()
+                local fname = vim.api.nvim_buf_get_name(0)
+                local ts_root = require('lspconfig.util').root_pattern('package.json', 'tsconfig.json', 'jsconfig.json')(fname)
+                local deno_root = require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')(fname)
+                return ts_root ~= nil and deno_root == nil
+              end
+            '';
+          };
+          denols = {
+            enable = true;
+            rootDir.__raw = ''
+              function(fname)
+                return require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')(fname)
+              end
+            '';
+          };
           biome.enable = true;
           tailwindcss.enable = true;
         };
@@ -281,8 +302,9 @@ in
               stop_after_first = true;
             };
             typescript = {
-              __unkeyed-1 = "biome";
-              __unkeyed-2 = "prettier";
+              __unkeyed-1 = "deno fmt";
+              __unkeyed-2 = "biome";
+              __unkeyed-3 = "prettier";
               timeout_ms = 2000;
               stop_after_first = true;
             };
@@ -293,13 +315,25 @@ in
               stop_after_first = true;
             };
             typescriptreact = {
-              __unkeyed-1 = "biome";
-              __unkeyed-2 = "prettier";
+              __unkeyed-1 = "deno fmt";
+              __unkeyed-2 = "biome";
+              __unkeyed-3 = "prettier";
               timeout_ms = 2000;
               stop_after_first = true;
             };
-            json = [ "biome" ];
-            css = [ "biome" ];
+            json = {
+              __unkeyed-1 = "deno fmt";
+              __unkeyed-2 = "biome";
+              __unkeyed-3 = "prettier";
+              timeout_ms = 2000;
+              stop_after_first = true;
+            };
+            css = {
+              __unkeyed-2 = "biome";
+              __unkeyed-3 = "prettier";
+              timeout_ms = 2000;
+              stop_after_first = true;
+            };
           };
           formatters = {
             nixfmt = {
