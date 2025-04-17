@@ -8,10 +8,13 @@
     };
   };
 
-  users.users."${vars.user}"= {
+  users.users."${vars.user}" = {
     name = "${vars.user}";
     home = "/home/${vars.user}";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     isNormalUser = true;
     packages = with pkgs; [ kitty ];
   };
