@@ -33,11 +33,10 @@
     settings = {
       datasource_list = [
         "NoCloud"
-        "ConfigDrive"
       ];
       datasource = {
         NoCloud = {
-          seedfrom = "/dev/sr0";
+          dsmode = "local";
         };
       };
       cloud_init_modules = [
@@ -64,6 +63,23 @@
       };
     };
   };
+
+  boot.initrd.availableKernelModules = [
+    "cdrom"
+  ];
+
+  fileSystems."/var/lib/cloud/seed/nocloud" = {
+    device = "/dev/sr0";
+    fsType = "iso9660";
+    options = [
+      "ro"
+      "nofail"
+    ];
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/cloud/seed/nocloud 0755 root root - -"
+  ];
 
   nix.settings.trusted-users = [
     "root"
