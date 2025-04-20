@@ -21,8 +21,8 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
+    disko = {
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -30,7 +30,6 @@
   outputs =
     {
       nixpkgs,
-      nixos-generators,
       ...
     }@inputs:
     let
@@ -45,14 +44,6 @@
         "aarch64-darwin"
         "x86_64-darwin"
       ];
-      forAllVMs =
-        f:
-        nixpkgs.lib.genAttrs linuxSystems (
-          system:
-          f {
-            inherit system;
-          }
-        );
       forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
       devShell =
         system:
@@ -84,25 +75,6 @@
         import ./systems/darwin {
           inherit (nixpkgs) lib;
           inherit inputs vars;
-        }
-      );
-
-      packages = forAllVMs (
-        { system }:
-        {
-          proxmox = nixos-generators.nixosGenerate {
-            inherit system;
-            format = "proxmox";
-            specialArgs = { inherit vars inputs; };
-            modules = [
-              {
-                nix.registry.nixpkgs.flake = nixpkgs;
-                virtualisation.diskSize = 20 * 1024;
-                hardware.enableRedistributableFirmware = true;
-              }
-              ./systems/nixos/pve/default.nix
-            ];
-          };
         }
       );
 

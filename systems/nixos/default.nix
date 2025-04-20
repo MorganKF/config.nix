@@ -1,7 +1,6 @@
 { inputs, vars, ... }:
 let
   system = "x86_64-linux";
-
   pkgs-stable = import inputs.nixpkgs-stable {
     inherit system;
     config.allowUnfree = true;
@@ -39,7 +38,7 @@ in
       }
     ];
   };
-  pve = inputs.nixpkgs.lib.nixosSystem {
+  generic = inputs.nixpkgs.lib.nixosSystem {
     inherit system;
     specialArgs = {
       inherit
@@ -50,6 +49,7 @@ in
         ;
     };
     modules = [
+      inputs.disko.nixosModules.disko
       ./pve
       inputs.home-manager.nixosModules.home-manager
       {

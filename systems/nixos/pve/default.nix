@@ -2,31 +2,81 @@
   pkgs,
   vars,
   modulesPath,
+  lib,
   ...
 }:
 {
   imports = [
-    (modulesPath + "/profiles/qemu-guest.nix")
+    (modulesPath + "/installer/scan/not-detected.nix")
+    ./disk-config.nix
+    ./hardware-configuration.nix
   ];
 
   services.qemuGuest.enable = true;
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "nodev";
-  boot.growPartition = true;
+  boot = {
+    growPartition = true;
+    loader.grub = {
+      efiSupport = true;
+      efiInstallAsRemovable = true;
+    };
+  };
+
+  security.sudo = {
+    enable = true;
+    wheelNeedsPassword = false;
+  };
+
+  services.cloud-init = {
+    enable = true;
+    network.enable = true;
+    settings = {
+      datasource_list = [
+        "NoCloud"
+        "ConfigDrive"
+      ];
+      datasource = {
+        NoCloud = {
+          seedfrom = "/dev/sr0";
+        };
+      };
+      cloud_init_modules = [
+        "migrator"
+        "seed_random"
+        "bootcmd"
+        "write-files"
+        "growpart"
+        "resizefs"
+        "update_etc_hosts"
+        "set_hostname"
+        "update_hostname"
+        "ca-certs"
+        "rsyslog"
+      ];
+      users = {
+        disable_root = false;
+        users = [ ];
+      };
+
+      ssh = {
+        emit_keys_to_console = false;
+        allow_public_ssh_keys = false;
+      };
+    };
+  };
 
   nix.settings.trusted-users = [
     "root"
     "@wheel"
   ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
+  networking = {
+    hostName = "nixos-pve";
+    useDHCP = lib.mkForce false;
+    useNetworkd = true;
   };
 
-  networking.hostName = "nixos-pve";
-  networking.networkmanager.enable = true;
+  systemd.network.enable = true;
 
   time.timeZone = "America/St_Johns";
   i18n.defaultLocale = "en_CA.UTF-8";
@@ -34,8 +84,11 @@
   programs.ssh.startAgent = true;
   services.openssh = {
     enable = true;
-    settings.PasswordAuthentication = false;
-    settings.KbdInteractiveAuthentication = false;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "prohibit-password";
+    };
   };
 
   users.users."${vars.user}" = {
