@@ -12,6 +12,14 @@
     ./hardware-configuration.nix
   ];
 
+  nix = {
+    settings.experimental-features = "nix-command flakes";
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 30d";
+    };
+  };
+
   services.qemuGuest.enable = true;
 
   boot = {
@@ -20,6 +28,9 @@
       efiSupport = true;
       efiInstallAsRemovable = true;
     };
+    initrd.availableKernelModules = [
+      "cdrom"
+    ];
   };
 
   security.sudo = {
@@ -39,6 +50,8 @@
           dsmode = "local";
         };
       };
+
+      # Disable user and ssh key creation
       cloud_init_modules = [
         "migrator"
         "seed_random"
@@ -64,10 +77,7 @@
     };
   };
 
-  boot.initrd.availableKernelModules = [
-    "cdrom"
-  ];
-
+  # Mount cloud-init drive
   fileSystems."/var/lib/cloud/seed/nocloud" = {
     device = "/dev/sr0";
     fsType = "iso9660";
@@ -86,12 +96,6 @@
     "@wheel"
   ];
 
-  networking = {
-    hostName = "nixos-pve";
-    useDHCP = lib.mkForce false;
-    useNetworkd = true;
-  };
-
   systemd.network.enable = true;
 
   time.timeZone = "America/St_Johns";
@@ -107,6 +111,60 @@
     };
   };
 
+  networking = {
+    hostName = "nixos-pve";
+    useDHCP = lib.mkForce false;
+    useNetworkd = true;
+    firewall = {
+      enable = true;
+      allowPing = true;
+      allowedTCPPortRanges = [
+        {
+          from = 3000;
+          to = 3999;
+        }
+      ];
+      allowedUDPPortRanges = [
+        {
+          from = 3000;
+          to = 3999;
+        }
+      ];
+    };
+  };
+
+  services.samba = {
+    enable = true;
+    securityType = "user";
+    openFirewall = true;
+    settings = {
+      global = {
+        "workgroup" = "WORKGROUP";
+        "server string" = "Nix Dev Samba Server";
+        "netbios name" = "smbnix";
+        "security" = "user";
+        "hosts allow" = "192.168.2. 127.0.0.1 localhost";
+        "hosts deny" = "0.0.0.0/0";
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+      };
+      "public" = {
+        "path" = "/home/${vars.user}/public";
+        "browseable" = "yes";
+        "read only" = "no";
+        "guest ok" = "yes";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "force user" = "${vars.user}";
+      };
+    };
+  };
+
+  services.samba-wsdd = {
+    enable = true;
+    openFirewall = true;
+  };
+
   users.users."${vars.user}" = {
     name = "${vars.user}";
     home = "/home/${vars.user}";
@@ -118,14 +176,6 @@
     openssh.authorizedKeys.keys = [
       "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIHyziKmJqEMI3C3/nV/lt32x0/ma1xfoKogmlHjbS+bjAAAADHNzaDp5dWJpa2V5NQ== ssh:yubikey5"
     ];
-  };
-
-  nix = {
-    settings.experimental-features = "nix-command flakes";
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 30d";
-    };
   };
 
   users.defaultUserShell = pkgs.nushell;

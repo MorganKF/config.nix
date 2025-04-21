@@ -53,7 +53,6 @@
         {
           default = pkgs.mkShell {
             nativeBuildInputs = with pkgs; [ nixfmt-rfc-style ];
-            packages = with pkgs; [ nil ];
           };
         };
     in
