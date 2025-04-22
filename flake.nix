@@ -53,6 +53,29 @@
         {
           default = pkgs.mkShell {
             nativeBuildInputs = with pkgs; [ nixfmt-rfc-style ];
+            packages = [
+              (pkgs.rustPlatform.buildRustPackage rec {
+                pname = "nur";
+                version = "0.15.2";
+                useFetchCargoVendor = true;
+                src = pkgs.fetchFromGitHub {
+                  owner = "nur-taskrunner";
+                  repo = "nur";
+                  rev = "v${version}";
+                  sha256 = "sha256-byRPrgFEiGb/scSc+xHc6rmRvtM9/GSRxgRqyxOaC4c=";
+                };
+                cargoHash = "sha256-w1jGcSUJv4H6c+yLcciWfMr9zxHF8GeiSyWls0mc+oY=";
+                nativeBuildInputs = with pkgs; [
+                  pkg-config
+                ];
+                buildInputs = with pkgs; [ openssl ];
+
+                # openssl-sys required dependencies
+                OPENSSL_DIR = "${pkgs.openssl.dev}";
+                OPENSSL_LIB_DIR = "${pkgs.openssl.out}/lib";
+                OPENSSL_INCLUDE_DIR = "${pkgs.openssl.dev}/include";
+              })
+            ];
           };
         };
     in
