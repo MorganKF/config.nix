@@ -38,7 +38,7 @@ in
       }
     ];
   };
-  generic = inputs.nixpkgs.lib.nixosSystem {
+  pve = inputs.nixpkgs.lib.nixosSystem {
     inherit system;
     specialArgs = {
       inherit
