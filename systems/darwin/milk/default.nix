@@ -6,15 +6,14 @@
 }:
 {
   nixpkgs.config.allowUnfree = true;
+
   environment.systemPackages = with pkgs; [
     aws-vault
     slack
     postman
     colima
-    docker
+    docker-client
     docker-compose
-    firefox-unwrapped
-    google-chrome
     zoom-us
     _1password-cli
   ];
@@ -26,11 +25,11 @@
     app_target_base="$HOME/Applications"
     app_target="$app_target_base/$moniker"
     mkdir -p "$app_target"
-    ${pkgs.rsync}/bin/rsync --archive --checksum --chmod=-w --copy-unsafe-links --delete "$apps_source/" "$app_target"
+    sudo ${pkgs.rsync}/bin/rsync --archive --checksum --chmod=-w --copy-unsafe-links --delete "$apps_source/" "$app_target"
   '';
 
   services.openssh.enable = true;
-  users.users."${vars.user}".openssh.authorizedKeys.keys = [
+  users.users.${vars.user}.openssh.authorizedKeys.keys = [
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIHyziKmJqEMI3C3/nV/lt32x0/ma1xfoKogmlHjbS+bjAAAADHNzaDp5dWJpa2V5NQ== ssh:yubikey5"
   ];
 

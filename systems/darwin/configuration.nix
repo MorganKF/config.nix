@@ -1,6 +1,7 @@
 { vars, pkgs, ... }:
 {
   nix.settings.experimental-features = "nix-command flakes";
+  ids.gids.nixbld = 350;
   nix.gc = {
     automatic = true;
     interval = {
@@ -44,8 +45,6 @@
   };
 
   programs.zsh.enable = true;
-
-  environment.systemPackages = [ ];
 
   homebrew = {
     enable = true;
