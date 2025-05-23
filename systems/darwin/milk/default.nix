@@ -9,8 +9,6 @@
 
   environment.systemPackages = with pkgs; [
     aws-vault
-    slack
-    postman
     colima
     docker-client
     docker-compose
@@ -43,6 +41,8 @@
     casks = [
       "mongodb-compass"
       "1password"
+      "slack"
+      "postman"
     ];
   };
 }
