@@ -52,8 +52,9 @@
         in
         {
           default = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [ nixfmt-rfc-style ];
-            packages = [
+            packages = with pkgs; [
+              nixfmt-rfc-style
+              git
               (pkgs.rustPlatform.buildRustPackage rec {
                 pname = "nur";
                 version = "0.15.2";
