@@ -13,6 +13,7 @@
   };
 
   system = {
+    primaryUser = "morgan";
     defaults = {
       dock = {
         show-recents = false;
@@ -57,6 +58,7 @@
     casks = [
       "iterm2"
       "font-jetbrains-mono-nerd-font" # TODO: Install from nix nerdfont package
+      "firefox"
     ];
   };
 }
