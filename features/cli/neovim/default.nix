@@ -119,7 +119,6 @@ in
       plugins.lazy = {
         enable = true;
       };
-
       plugins.persisted.enable = true;
       plugins.noice = {
         enable = true;
@@ -261,13 +260,13 @@ in
           };
           denols = {
             enable = true;
-            rootDir.__raw = ''
-              function(fname)
-                return require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')(fname)
-              end
-            '';
+            rootMarkers = [
+              "deno.json"
+              "deno.jsonc"
+            ];
           };
           biome.enable = true;
+          eslint.enable = true;
           tailwindcss.enable = true;
         };
       };
@@ -289,28 +288,48 @@ in
             nix = [ "nixfmt" ];
             zig = [ "zig fmt" ];
             javascript = {
-              __unkeyed-1 = "biome";
               __unkeyed-2 = "prettier";
               timeout_ms = 2000;
               stop_after_first = true;
             };
             typescript = {
               __unkeyed-1 = "deno fmt";
-              __unkeyed-2 = "biome";
-              __unkeyed-3 = "prettier";
-              timeout_ms = 2000;
-              stop_after_first = true;
-            };
-            javascriptreact = {
-              __unkeyed-1 = "biome";
               __unkeyed-2 = "prettier";
               timeout_ms = 2000;
               stop_after_first = true;
             };
+            javascriptreact = {
+              __unkeyed-2 = "prettier";
+              timeout_ms = 2000;
+              stop_after_first = true;
+            };
+            plugins.lsp = {
+              enable = true;
+              servers = {
+                nil_ls.enable = true;
+                nushell.enable = true;
+                zls.enable = true;
+                vtsls = {
+                  enable = true;
+                  # Autostart with autocmd
+                  autostart = false;
+                };
+                denols = {
+                  enable = true;
+                  autostart = false;
+                  rootMarkers = [
+                    "deno.json"
+                    "deno.jsonc"
+                  ];
+                };
+                biome.enable = true;
+                eslint.enable = true;
+                tailwindcss.enable = true;
+              };
+            };
             typescriptreact = {
               __unkeyed-1 = "deno fmt";
-              __unkeyed-2 = "biome";
-              __unkeyed-3 = "prettier";
+              __unkeyed-2 = "prettier";
               timeout_ms = 2000;
               stop_after_first = true;
             };
