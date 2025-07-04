@@ -260,6 +260,7 @@ in
           };
           denols = {
             enable = true;
+            autostart = false;
             rootMarkers = [
               "deno.json"
               "deno.jsonc"
