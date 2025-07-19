@@ -278,6 +278,7 @@ in
         ";
       };
       plugins.friendly-snippets.enable = true;
+      plugins.rustaceanvim.enable = true;
       plugins.conform-nvim = {
         enable = true;
         settings = {
@@ -303,30 +304,6 @@ in
               __unkeyed-2 = "prettier";
               timeout_ms = 2000;
               stop_after_first = true;
-            };
-            plugins.lsp = {
-              enable = true;
-              servers = {
-                nil_ls.enable = true;
-                nushell.enable = true;
-                zls.enable = true;
-                vtsls = {
-                  enable = true;
-                  # Autostart with autocmd
-                  autostart = false;
-                };
-                denols = {
-                  enable = true;
-                  autostart = false;
-                  rootMarkers = [
-                    "deno.json"
-                    "deno.jsonc"
-                  ];
-                };
-                biome.enable = true;
-                eslint.enable = true;
-                tailwindcss.enable = true;
-              };
             };
             typescriptreact = {
               __unkeyed-1 = "deno fmt";
