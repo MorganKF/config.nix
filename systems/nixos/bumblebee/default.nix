@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -7,6 +8,15 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/nvme0n1";
   boot.loader.grub.useOSProber = true;
+  boot.supportedFilesystems = [ "ntfs" ];
+
+  # Explicitly enable udisks2
+  services.udisks2.enable = true;
+
+  # Add ntfs-3g to system packages
+  environment.systemPackages = with pkgs; [
+    ntfs3g
+  ];
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
