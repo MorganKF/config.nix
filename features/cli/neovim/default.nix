@@ -253,6 +253,7 @@ in
           nil_ls.enable = true;
           nushell.enable = true;
           zls.enable = true;
+          slint_lsp.enable = true;
           vtsls = {
             enable = true;
             # Autostart with autocmd
