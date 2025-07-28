@@ -1,5 +1,7 @@
 { pkgs, vars, ... }:
 {
+  nixpkgs.config.allowUnfree = true;
+
   nix = {
     settings.experimental-features = "nix-command flakes";
     gc = {
@@ -16,8 +18,24 @@
       "wheel"
     ];
     isNormalUser = true;
-    packages = with pkgs; [ kitty ];
+    packages = with pkgs; [
+      kitty
+      teamspeak6-client
+      vesktop
+      gitkraken
+    ];
   };
 
   users.defaultUserShell = pkgs.nushell;
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
+
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
+  services.flatpak.enable = true;
 }
