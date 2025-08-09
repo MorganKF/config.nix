@@ -28,6 +28,9 @@ in
         nvimRuntime = true;
         plugins = true;
       };
+      extraPackages = pkgs.lib.optionals pkgs.stdenv.isLinux [
+        pkgs.wl-clipboard
+      ];
       globals = {
         mapleader = " ";
         maplocalleader = "\\";
