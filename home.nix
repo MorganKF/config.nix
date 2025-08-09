@@ -3,7 +3,9 @@
   imports = [ ./features/cli ];
 
   programs = {
-    home-manager.enable = true;
+    home-manager = {
+      enable = true;
+    };
   };
 
   home = {

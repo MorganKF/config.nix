@@ -10,6 +10,10 @@
     };
   };
 
+  environment.systemPackages = [
+    pkgs.kitty
+  ];
+
   users.users."${vars.user}" = {
     name = "${vars.user}";
     home = "/home/${vars.user}";
@@ -19,10 +23,10 @@
     ];
     isNormalUser = true;
     packages = with pkgs; [
-      kitty
       teamspeak6-client
       vesktop
       gitkraken
+      gparted
     ];
   };
 

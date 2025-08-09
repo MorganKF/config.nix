@@ -28,11 +28,13 @@ in
           inherit inputs pkgs-stable;
         };
         home-manager.sharedModules = [
-          inputs.nixvim.homeManagerModules.nixvim
+          inputs.nixvim.homeModules.nixvim
         ];
+        home-manager.backupFileExtension = "backup";
         home-manager.users."${vars.user}" = {
           imports = [
             ../../home.nix
+            ./bumblebee/home.nix
           ];
         };
       }
@@ -59,7 +61,7 @@ in
           inherit inputs pkgs-stable;
         };
         home-manager.sharedModules = [
-          inputs.nixvim.homeManagerModules.nixvim
+          inputs.nixvim.homeModules.nixvim
         ];
         home-manager.users."${vars.user}" = {
           imports = [

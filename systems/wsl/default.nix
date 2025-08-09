@@ -29,7 +29,7 @@ in
           inherit inputs pkgs-stable;
         };
         home-manager.sharedModules = [
-          inputs.nixvim.homeManagerModules.nixvim
+          inputs.nixvim.homeModules.nixvim
         ];
         home-manager.users.nixos = {
           imports = [
