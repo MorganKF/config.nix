@@ -11,7 +11,7 @@
     };
   };
 
-  # Disable git managment on MacOS
+  # Disable git management on MacOS
   programs.git.enable = false;
 
   home = {
