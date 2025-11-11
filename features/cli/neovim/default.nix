@@ -16,6 +16,7 @@ in
     ./keymaps.nix
     ./autocmds.nix
     ./harpoon.nix
+    ./dashboard.nix
   ];
 
   config = mkIf neovim.enable {
@@ -64,13 +65,18 @@ in
       plugins.flash.enable = true;
       plugins.lualine = {
         enable = true;
-        settings.sections.lualine_x.__raw = "{
+        settings = {
+          options = {
+            theme = "auto";
+          };
+          sections.lualine_x.__raw = "{
           {
             require('noice').api.statusline.mode.get,
             cond = require('noice').api.statusline.mode.has,
             color = { fg = '#ff9e64' },
           }
         }";
+        };
       };
       plugins.oil = {
         enable = true;
@@ -117,11 +123,6 @@ in
           };
         };
       };
-
-      # Enable lazy to make snacks happy
-      plugins.lazy = {
-        enable = true;
-      };
       plugins.persisted.enable = true;
       plugins.noice = {
         enable = true;
@@ -143,55 +144,19 @@ in
           };
         };
       };
-      plugins.snacks = {
+      plugins.neoscroll = {
+        enable = true;
+      };
+      plugins.indent-blankline = {
         enable = true;
         settings = {
-          indent.enable = true;
-          toggle.enable = true;
-          notifier.enable = true;
-          scroll.enable = true;
-          dashboard = {
-            enable = true;
-            preset = {
-              keys = [
-                {
-                  icon = " ";
-                  key = "f";
-                  desc = "Find File";
-                  action = ":lua Snacks.dashboard.pick('files')";
-                }
-                {
-                  icon = " ";
-                  key = "n";
-                  desc = "New File";
-                  action = ":ene | startinsert";
-                }
-                {
-                  icon = " ";
-                  key = "g";
-                  desc = "Find Text";
-                  action = ":lua Snacks.dashboard.pick('live_grep')";
-                }
-                {
-                  icon = " ";
-                  key = "r";
-                  desc = "Recent Files";
-                  action = ":lua Snacks.dashboard.pick('oldfiles')";
-                }
-                {
-                  icon = " ";
-                  key = "s";
-                  desc = "Sessions";
-                  action = ":Telescope persisted";
-                }
-                {
-                  icon = " ";
-                  key = "q";
-                  desc = "Quit";
-                  action = ":qa";
-                }
-              ];
-            };
+          scope.enabled = true;
+          exclude = {
+            filetypes = [
+              "alpha"
+              "help"
+              "terminal"
+            ];
           };
         };
       };
