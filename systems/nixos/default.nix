@@ -1,4 +1,4 @@
-{ inputs, vars, ... }:
+{ inputs, ... }:
 let
   system = "x86_64-linux";
   pkgs-stable = import inputs.nixpkgs-stable {
@@ -14,7 +14,6 @@ in
         inputs
         pkgs-stable
         system
-        vars
         ;
     };
     modules = [
@@ -31,10 +30,42 @@ in
           inputs.nixvim.homeModules.nixvim
         ];
         home-manager.backupFileExtension = "backup";
-        home-manager.users."${vars.user}" = {
+        home-manager.users.morgan = {
           imports = [
             ../../home.nix
             ./bumblebee/home.nix
+          ];
+        };
+      }
+    ];
+  };
+  everest = inputs.nixpkgs.lib.nixosSystem {
+    inherit system;
+    specialArgs = {
+      inherit
+        inputs
+        pkgs-stable
+        system
+        ;
+    };
+    modules = [
+      ./configuration.nix
+      ./everest
+      inputs.home-manager.nixosModules.home-manager
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.extraSpecialArgs = {
+          inherit inputs pkgs-stable;
+        };
+        home-manager.sharedModules = [
+          inputs.nixvim.homeModules.nixvim
+        ];
+        home-manager.backupFileExtension = "backup";
+        home-manager.users.morganf = {
+          imports = [
+            ../../home.nix
+            ./everest/home.nix
           ];
         };
       }
@@ -47,7 +78,6 @@ in
         inputs
         pkgs-stable
         system
-        vars
         ;
     };
     modules = [
@@ -63,7 +93,7 @@ in
         home-manager.sharedModules = [
           inputs.nixvim.homeModules.nixvim
         ];
-        home-manager.users."${vars.user}" = {
+        home-manager.users.morgan = {
           imports = [
             ../../home.nix
           ];

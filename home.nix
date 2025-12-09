@@ -9,7 +9,7 @@
   };
 
   home = {
-    packages = with pkgs; [ just ];
+    packages = with pkgs; [ ];
     stateVersion = "24.11";
   };
 

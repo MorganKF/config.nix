@@ -1,4 +1,4 @@
-{ pkgs, vars, ... }:
+{ pkgs, ... }:
 {
   nixpkgs.config.allowUnfree = true;
 
@@ -13,22 +13,6 @@
   environment.systemPackages = [
     pkgs.kitty
   ];
-
-  users.users."${vars.user}" = {
-    name = "${vars.user}";
-    home = "/home/${vars.user}";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-    isNormalUser = true;
-    packages = with pkgs; [
-      teamspeak6-client
-      vesktop
-      gitkraken
-      gparted
-    ];
-  };
 
   users.defaultUserShell = pkgs.nushell;
 

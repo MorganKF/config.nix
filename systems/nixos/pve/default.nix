@@ -1,6 +1,5 @@
 {
   pkgs,
-  vars,
   modulesPath,
   lib,
   ...
@@ -149,13 +148,13 @@
         "map to guest" = "bad user";
       };
       "public" = {
-        "path" = "/home/${vars.user}/public";
+        "path" = "/home/morgan/public";
         "browseable" = "yes";
         "read only" = "no";
         "guest ok" = "yes";
         "create mask" = "0644";
         "directory mask" = "0755";
-        "force user" = "${vars.user}";
+        "force user" = "morgan";
       };
     };
   };
@@ -165,9 +164,9 @@
     openFirewall = true;
   };
 
-  users.users."${vars.user}" = {
-    name = "${vars.user}";
-    home = "/home/${vars.user}";
+  users.users.morgan = {
+    name = "Morgan";
+    home = "/home/morgan";
     extraGroups = [
       "networkmanager"
       "wheel"

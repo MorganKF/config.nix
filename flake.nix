@@ -33,9 +33,6 @@
       ...
     }@inputs:
     let
-      vars = {
-        user = "morgan";
-      };
       linuxSystems = [
         "aarch64-linux"
         "x86_64-linux"
@@ -85,11 +82,11 @@
         let
           wsl = import ./systems/wsl {
             inherit (nixpkgs) lib;
-            inherit inputs vars;
+            inherit inputs;
           };
           nix = import ./systems/nixos {
             inherit (nixpkgs) lib;
-            inherit inputs vars;
+            inherit inputs;
           };
         in
         wsl // nix;
@@ -97,7 +94,7 @@
       darwinConfigurations = (
         import ./systems/darwin {
           inherit (nixpkgs) lib;
-          inherit inputs vars;
+          inherit inputs;
         }
       );
 

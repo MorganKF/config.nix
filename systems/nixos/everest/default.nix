@@ -5,20 +5,15 @@
   ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/nvme0n1";
-  boot.loader.grub.useOSProber = true;
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_6_17;
+  boot.kernelModules = [ "nct6687d" ];
 
   # Explicitly enable udisks2
   services.udisks2.enable = true;
 
-  # Add ntfs-3g to system packages
-  environment.systemPackages = with pkgs; [
-    ntfs3g
-  ];
-
-  networking.hostName = "nixos";
+  networking.hostName = "Everest";
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/St_Johns";
@@ -32,27 +27,32 @@
   };
 
   # Setup user
-
-  users.users.morgan = {
-    name = "Morgan";
-    home = "/home/morgan";
+  users.users.morganf = {
+    isNormalUser = true;
+    description = "Morgan Fudge";
     extraGroups = [
       "networkmanager"
       "wheel"
+      "plugdev"
     ];
-    isNormalUser = true;
     packages = with pkgs; [
+      thunderbird
       teamspeak6-client
       vesktop
       gitkraken
       gparted
+      liquidctl
+      lm_sensors
+      mangohud
     ];
   };
 
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
+  services.desktopManager.plasma6.enable = true;
+
+  #programs.hyprland = {
+  #  enable = true;
+  #  xwayland.enable = true;
+  #};
 
   services.printing.enable = true;
 
@@ -63,18 +63,16 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    extraConfig.pipewire."92-low-latency" = {
-      context.properties = {
-        "default.clock.min-quantum" = 512;
-        "default.clock.max-quantum" = 2048;
-        "default.clock.quantum" = 512;
-      };
-    };
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
+  # Needed for cooling
+  programs.coolercontrol.enable = true;
+  services.udev.packages = [ pkgs.liquidctl ];
 
+  # Rgb settings
+  services.hardware.openrgb.enable = true;
+
+  # Enable ld
   programs.nix-ld.enable = true;
 
   # Enable OpenGL
@@ -106,14 +104,11 @@
     # supported GPUs is at:
     # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
     # Only available from driver 515.43.04+
-    open = false;
+    open = true;
 
     # Enable the Nvidia settings menu,
     # accessible via `nvidia-settings`.
     nvidiaSettings = true;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   # This value determines the NixOS release from which the default
@@ -122,5 +117,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 }

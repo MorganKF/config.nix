@@ -1,4 +1,3 @@
-{ vars, pkgs, ... }:
 {
   nix.settings.experimental-features = "nix-command flakes";
   ids.gids.nixbld = 350;
@@ -40,9 +39,9 @@
   # Enable terminal touch id instead of passwd
   security.pam.services.sudo_local.touchIdAuth = true;
 
-  users.users."${vars.user}" = {
-    name = "${vars.user}";
-    home = "/Users/${vars.user}";
+  users.users.morgan = {
+    name = "Morgan";
+    home = "/Users/morgan";
   };
 
   programs.zsh.enable = true;

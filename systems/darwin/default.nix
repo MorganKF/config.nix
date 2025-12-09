@@ -1,4 +1,4 @@
-{ inputs, vars, ... }:
+{ inputs, ... }:
 let
   system = "aarch64-darwin";
   pkgs-stable = import inputs.nixpkgs-stable {
@@ -14,7 +14,6 @@ in
         inputs
         pkgs-stable
         system
-        vars
         ;
     };
     modules = [
@@ -30,7 +29,7 @@ in
         home-manager.sharedModules = [
           inputs.nixvim.homeModules.nixvim
         ];
-        home-manager.users."${vars.user}" = {
+        home-manager.users.morgan = {
           imports = [
             ../../home.nix
             ./milk/home.nix

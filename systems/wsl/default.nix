@@ -1,4 +1,4 @@
-{ inputs, vars, ... }:
+{ inputs, ... }:
 let
   system = "x86_64-linux";
 
@@ -15,7 +15,6 @@ in
         inputs
         pkgs-stable
         system
-        vars
         ;
     };
     modules = [
