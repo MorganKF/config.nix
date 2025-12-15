@@ -40,8 +40,9 @@
   security.pam.services.sudo_local.touchIdAuth = true;
 
   users.users.morgan = {
-    name = "Morgan";
+    name = "morgan";
     home = "/Users/morgan";
+    uid = 502;
   };
 
   programs.zsh.enable = true;

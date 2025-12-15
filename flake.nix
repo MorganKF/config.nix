@@ -54,15 +54,14 @@
               git
               (pkgs.rustPlatform.buildRustPackage rec {
                 pname = "nur";
-                version = "0.15.2";
-                useFetchCargoVendor = true;
+                version = "0.20.0+0.108.0";
                 src = pkgs.fetchFromGitHub {
                   owner = "nur-taskrunner";
                   repo = "nur";
                   rev = "v${version}";
-                  sha256 = "sha256-byRPrgFEiGb/scSc+xHc6rmRvtM9/GSRxgRqyxOaC4c=";
+                  sha256 = "sha256-9WsuHKeOOL1bEkHPFvA+onKWfeuKe6GWg1Jmjb7qQts=";
                 };
-                cargoHash = "sha256-w1jGcSUJv4H6c+yLcciWfMr9zxHF8GeiSyWls0mc+oY=";
+                cargoHash = "sha256-dkYGrEMaF20uWZo6G7aukkoV0AiTON1AVfeXPfOsBuo=";
                 nativeBuildInputs = with pkgs; [
                   pkg-config
                 ];
