@@ -13,6 +13,7 @@
   environment.systemPackages = with pkgs; [
     kitty
     protonup-qt
+    gearlever
   ];
 
   users.defaultUserShell = pkgs.nushell;
