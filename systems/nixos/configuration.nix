@@ -10,8 +10,9 @@
     };
   };
 
-  environment.systemPackages = [
-    pkgs.kitty
+  environment.systemPackages = with pkgs; [
+    kitty
+    protonup-qt
   ];
 
   users.defaultUserShell = pkgs.nushell;
