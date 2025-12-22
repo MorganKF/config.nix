@@ -14,6 +14,7 @@
     kitty
     protonup-qt
     gearlever
+    mpv
   ];
 
   users.defaultUserShell = pkgs.nushell;
