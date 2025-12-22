@@ -49,10 +49,21 @@
       liquidctl
       lm_sensors
       mangohud
+      transmission_4-qt
+      unrar
     ];
   };
 
   services.desktopManager.plasma6.enable = true;
+
+  services.transmission = {
+    enable = true;
+    package = pkgs.transmission_4;
+    settings = {
+      download-dir = "/storage/torrents";
+
+    };
+  };
 
   #programs.hyprland = {
   #  enable = true;
