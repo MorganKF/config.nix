@@ -15,6 +15,11 @@
 
   networking.hostName = "Everest";
   networking.networkmanager.enable = true;
+  networking.firewall.allowedTCPPorts = [
+    24800
+    24802
+    24804
+  ];
 
   time.timeZone = "America/St_Johns";
   i18n.defaultLocale = "en_CA.UTF-8";
