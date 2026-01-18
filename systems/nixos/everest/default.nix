@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -7,15 +7,20 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_6_17;
-  boot.kernelModules = [ "nct6687d" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelModules = [
+    "nct6687d"
+  ];
+  ];
 
   # Explicitly enable udisks2
   services.udisks2.enable = true;
 
+  # Basic nnetworking setup
   networking.hostName = "Everest";
   networking.networkmanager.enable = true;
   networking.firewall.allowedTCPPorts = [
+    # Ports for synergy 3
     24800
     24802
     24804
