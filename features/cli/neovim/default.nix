@@ -227,6 +227,7 @@ in
             # Autostart with autocmd
             autostart = false;
           };
+          gopls.enable = true;
           denols = {
             enable = true;
             autostart = false;
