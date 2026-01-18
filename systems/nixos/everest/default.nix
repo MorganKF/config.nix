@@ -33,6 +33,9 @@
   time.timeZone = "America/St_Johns";
   i18n.defaultLocale = "en_CA.UTF-8";
 
+  # Enable docker
+  virtualisation.docker.enable = true;
+
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
   services.xserver.xkb = {
@@ -48,6 +51,7 @@
       "networkmanager"
       "wheel"
       "plugdev"
+      "docker"
     ];
     packages = with pkgs; [
       thunderbird
