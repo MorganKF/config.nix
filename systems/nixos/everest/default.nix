@@ -64,6 +64,9 @@
       mangohud
       transmission_4-qt
       unrar
+      lsfg-vk
+      lsfg-vk-ui
+      osu-lazer-bin
     ];
   };
 
