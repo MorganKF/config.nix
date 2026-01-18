@@ -61,14 +61,8 @@
     package = pkgs.transmission_4;
     settings = {
       download-dir = "/storage/torrents";
-
     };
   };
-
-  #programs.hyprland = {
-  #  enable = true;
-  #  xwayland.enable = true;
-  #};
 
   services.printing.enable = true;
 
@@ -91,14 +85,14 @@
     };
   };
 
-  # Needed for cooling
+  # Cooler setup
   programs.coolercontrol.enable = true;
   services.udev.packages = [ pkgs.liquidctl ];
 
   # Rgb settings
   services.hardware.openrgb.enable = true;
 
-  # Enable ld
+  # Enable nix-ld
   programs.nix-ld.enable = true;
 
   # Enable OpenGL
@@ -109,7 +103,6 @@
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
-
   hardware.nvidia = {
 
     # Modesetting is required.

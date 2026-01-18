@@ -8,6 +8,7 @@ in
     kitty.enable = true;
     rofi.enable = true;
   };
+
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 
   home.pointerCursor = {
