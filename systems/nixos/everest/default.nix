@@ -10,7 +10,11 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = [
     "nct6687d"
+    "uinput"
   ];
+  boot.blacklistedKernelModules = [
+    "wacom"
+    "hid_uclogic"
   ];
 
   # Explicitly enable udisks2
@@ -99,6 +103,12 @@
 
   # Enable nix-ld
   programs.nix-ld.enable = true;
+
+  # Enable open-tablet-driver
+  hardware = {
+    opentabletdriver.enable = true;
+    uinput.enable = true;
+  };
 
   # Enable OpenGL
   hardware.graphics = {
