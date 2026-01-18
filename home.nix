@@ -1,6 +1,9 @@
 { pkgs, lib, ... }:
 {
-  imports = [ ./features/cli ];
+  imports = [
+    ./features/cli
+    ./features/desktop
+  ];
 
   programs = {
     home-manager = {
@@ -13,8 +16,13 @@
     stateVersion = "24.11";
   };
 
-  features.cli = {
-    nushell.enable = lib.mkDefault true;
-    neovim.enable = lib.mkDefault true;
+  features = {
+    cli = {
+      nushell.enable = lib.mkDefault true;
+      neovim.enable = lib.mkDefault true;
+    };
+    desktop = {
+      niri.enable = lib.mkDefault false;
+    };
   };
 }
