@@ -1,8 +1,7 @@
-{ vars, ... }:
 {
   nix.settings.experimental-features = "nix-command flakes";
+  ids.gids.nixbld = 350;
   nix.gc = {
-    user = "root";
     automatic = true;
     interval = {
       Weekday = 0;
@@ -12,13 +11,13 @@
     options = "--delete-older-than 30d";
   };
 
-  services.nix-daemon.enable = true;
-
   system = {
+    primaryUser = "morgan";
     defaults = {
       dock = {
         show-recents = false;
         tilesize = 85;
+        autohide = true;
       };
 
       finder = {
@@ -37,26 +36,29 @@
     stateVersion = 4;
   };
 
-  users.users."${vars.user}" = {
-    name = "${vars.user}";
-    home = "/Users/${vars.user}";
+  # Enable terminal touch id instead of passwd
+  security.pam.services.sudo_local.touchIdAuth = true;
+
+  users.users.morgan = {
+    name = "morgan";
+    home = "/Users/morgan";
+    uid = 502;
   };
 
   programs.zsh.enable = true;
 
-  environment.systemPackages = [ ];
-
   homebrew = {
     enable = true;
-    onActivation.cleanup = "uninstall";
+    onActivation.cleanup = "zap";
+    onActivation.autoUpdate = true;
+    onActivation.upgrade = true;
 
     taps = [ ];
     brews = [ ];
     casks = [
       "iterm2"
-      "font-jetbrains-mono-nerd-font"
+      "font-jetbrains-mono-nerd-font" # TODO: Install from nix nerdfont package
+      "firefox"
     ];
   };
-
-  security.pam.enableSudoTouchIdAuth = true;
 }
