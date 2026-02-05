@@ -1,12 +1,18 @@
-{ pkgs, config, lib, ... }:
-with lib; let
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+with lib;
+let
   helix = config.features.cli.helix;
 in
 {
   options.features.cli.helix.enable = mkEnableOption "Enable helix";
 
   config = mkIf helix.enable {
-   programs = { 
+    programs = {
       helix = {
         enable = true;
         languages = {
@@ -33,7 +39,7 @@ in
               name = "nix";
               auto-format = true;
               formatter = {
-                command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
+                command = "${pkgs.nixfmt}/bin/nixfmt";
               };
             }
           ];
