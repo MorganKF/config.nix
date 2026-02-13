@@ -222,21 +222,17 @@ in
           nushell.enable = true;
           zls.enable = true;
           slint_lsp.enable = true;
-          vtsls = {
-            enable = true;
-            # Autostart with autocmd
-            autostart = false;
-          };
+          vtsls.enable = true;
           gopls.enable = true;
-          denols = {
+          denols.enable = true;
+          svelte.enable = true;
+          biome = {
             enable = true;
-            autostart = false;
-            rootMarkers = [
-              "deno.json"
-              "deno.jsonc"
+            cmd = [
+              "${pkgs.biome}/bin/biome"
+              "lsp-proxy"
             ];
           };
-          biome.enable = true;
           eslint.enable = true;
           tailwindcss.enable = true;
         };
@@ -260,24 +256,28 @@ in
             nix = [ "nixfmt" ];
             zig = [ "zig fmt" ];
             javascript = {
+              __unkeyed-1 = "biome";
               __unkeyed-2 = "prettier";
               timeout_ms = 2000;
               stop_after_first = true;
             };
             typescript = {
               __unkeyed-1 = "deno fmt";
-              __unkeyed-2 = "prettier";
+              __unkeyed-2 = "biome";
+              __unkeyed-3 = "prettier";
               timeout_ms = 2000;
               stop_after_first = true;
             };
             javascriptreact = {
-              __unkeyed-2 = "prettier";
+              __unkeyed-2 = "biome";
+              __unkeyed-1 = "prettier";
               timeout_ms = 2000;
               stop_after_first = true;
             };
             typescriptreact = {
               __unkeyed-1 = "deno fmt";
-              __unkeyed-2 = "prettier";
+              __unkeyed-2 = "biome";
+              __unkeyed-3 = "prettier";
               timeout_ms = 2000;
               stop_after_first = true;
             };
@@ -296,9 +296,8 @@ in
             };
           };
           formatters = {
-            nixfmt = {
-              command = lib.getExe pkgs.nixfmt;
-            };
+            nixfmt.command = lib.getExe pkgs.nixfmt;
+            biome.command = lib.getExe pkgs.biome;
           };
         };
       };

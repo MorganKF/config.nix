@@ -22,30 +22,6 @@
           end
         ";
       }
-
-      # Start correct typescript LSP
-      {
-        event = "BufEnter";
-        callback.__raw = ''
-                    function()
-            local fname = vim.api.nvim_buf_get_name(0)
-            local ts_root = require('lspconfig.util').root_pattern('package.json', 'tsconfig.json', 'jsconfig.json')(fname)
-            local deno_root = require('lspconfig.util').root_pattern('deno.json', 'deno.jsonc')(fname)
-            local ft = vim.bo.filetype
-
-            if ft == "javascript" or ft == "javascriptreact" or ft == "typescript" or ft == "typescriptreact" then
-              vim.cmd('LspStop vtsls')
-              vim.cmd('LspStop denols')
-
-              if deno_root ~= nil then
-                vim.cmd('LspStart denols')
-              elseif ts_root ~= nil then
-                vim.cmd('LspStart vtsls')
-              end
-            end
-          end
-        '';
-      }
     ];
   };
 }
