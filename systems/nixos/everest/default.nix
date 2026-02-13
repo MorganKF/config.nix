@@ -69,6 +69,7 @@
       lsfg-vk
       lsfg-vk-ui
       osu-lazer-bin
+      signal-desktop
     ];
   };
 
