@@ -11,6 +11,7 @@
   boot.kernelModules = [
     "nct6687d"
     "uinput"
+    "usbhid"
   ];
   boot.blacklistedKernelModules = [
     "wacom"
@@ -35,6 +36,7 @@
 
   # Enable docker
   virtualisation.docker.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
