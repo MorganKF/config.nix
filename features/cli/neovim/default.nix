@@ -234,7 +234,6 @@ in
             ];
           };
           eslint.enable = true;
-          tailwindcss.enable = true;
         };
       };
       plugins.lsp-lines = {
