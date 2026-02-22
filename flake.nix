@@ -1,102 +1,28 @@
+# DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
+# Use `nix run .#write-flake` to regenerate it.
 {
+
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
+
   inputs = {
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-25.11";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    flake-file.url = "github:vic/flake-file";
+    flake-parts.url = "github:hercules-ci/flake-parts";
     home-manager = {
-      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager/release-25.11";
     };
+    import-tree.url = "github:vic/import-tree";
+    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
     nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/NixOS-WSL";
     };
-    neovim-nightly = {
-      url = "github:nix-community/neovim-nightly-overlay";
-    };
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixvim = {
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs =
-    {
-      nixpkgs,
-      ...
-    }@inputs:
-    let
-      linuxSystems = [
-        "aarch64-linux"
-        "x86_64-linux"
-      ];
-      darwinSystems = [
-        "aarch64-darwin"
-        "x86_64-darwin"
-      ];
-      forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
-      devShell =
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-        {
-          default = pkgs.mkShell {
-            packages = with pkgs; [
-              nixfmt
-              git
-              (pkgs.rustPlatform.buildRustPackage rec {
-                pname = "nur";
-                version = "0.20.0+0.108.0";
-                src = pkgs.fetchFromGitHub {
-                  owner = "nur-taskrunner";
-                  repo = "nur";
-                  rev = "v${version}";
-                  sha256 = "sha256-9WsuHKeOOL1bEkHPFvA+onKWfeuKe6GWg1Jmjb7qQts=";
-                };
-                cargoHash = "sha256-dkYGrEMaF20uWZo6G7aukkoV0AiTON1AVfeXPfOsBuo=";
-                nativeBuildInputs = with pkgs; [
-                  pkg-config
-                ];
-                buildInputs = with pkgs; [ openssl ];
-
-                # openssl-sys required dependencies
-                OPENSSL_DIR = "${pkgs.openssl.dev}";
-                OPENSSL_LIB_DIR = "${pkgs.openssl.out}/lib";
-                OPENSSL_INCLUDE_DIR = "${pkgs.openssl.dev}/include";
-              })
-            ];
-          };
-        };
-    in
-    {
-      nixosConfigurations =
-        let
-          wsl = import ./systems/wsl {
-            inherit (nixpkgs) lib;
-            inherit inputs;
-          };
-          nix = import ./systems/nixos {
-            inherit (nixpkgs) lib;
-            inherit inputs;
-          };
-        in
-        wsl // nix;
-
-      darwinConfigurations = (
-        import ./systems/darwin {
-          inherit (nixpkgs) lib;
-          inherit inputs;
-        }
-      );
-
-      devShells = forAllSystems devShell;
-    };
 }
