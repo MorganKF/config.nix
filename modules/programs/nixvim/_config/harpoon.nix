@@ -1,8 +1,7 @@
 { pkgs, ... }:
 {
-  programs.nixvim = {
-    extraPlugins = with pkgs; [ vimPlugins.harpoon2 ];
-    extraConfigLua = "
+  extraPlugins = with pkgs; [ vimPlugins.harpoon2 ];
+  extraConfigLua = "
       local harpoon = require('harpoon')
 
       harpoon:setup()
@@ -18,5 +17,4 @@
       vim.keymap.set('n', '<S-l>', function() harpoon:list():prev() end, {noremap = true, silent = true})
       vim.keymap.set('n', '<S-h>', function() harpoon:list():next() end, {noremap = true, silent = true})
     ";
-  };
 }

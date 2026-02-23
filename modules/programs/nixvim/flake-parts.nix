@@ -8,11 +8,13 @@
     nixvim.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
-  flake.modules.nixos.system-cli = {
-    nixpkgs.overlays = [
-      (final: prev: {
-        neovim-nightly = inputs.neovim-nightly.packages.${prev.system}.default;
-      })
-    ];
-  };
+  # Export nixvim as a standalone runnable package
+  perSystem =
+    { system, pkgs, ... }:
+    {
+      packages.nvim = inputs.nixvim.legacyPackages.${system}.makeNixvim {
+        package = inputs.neovim-nightly.packages.${system}.default;
+        imports = [ ./_config ];
+      };
+    };
 }
