@@ -12,21 +12,19 @@
       ];
 
       # Add kernel module for getting motherboard sensor data
-      boot.kernelModules = [ "nct6687d" ];
+      boot.kernelModules = [ "nct6683" ];
+      boot.extraModprobeConfig = ''
+        options nct6683 force=1
+      '';
 
       # tz / localization
       time.timeZone = "America/St_Johns";
       i18n.defaultLocale = "en_CA.UTF-8";
 
       # Cooler / RGB control
-      environment.systemPackages = with pkgs; [
-        liquidctl
-        lm_sensors
-      ];
       programs.coolercontrol.enable = true;
       services = {
         hardware.openrgb.enable = true;
-        udev.packages = [ pkgs.liquidctl ];
       };
 
       # Reroute transmission files to spare drive
