@@ -1,3 +1,0 @@
-def "nur pve apply" [--target] {
-  nix run github:nix-community/nixos-anywhere -- --generate-hardware-config nixos-generate-config ./systems/nixos/pve/hardware-configuration.nix --flake .#pve --target-host {target}
-}
