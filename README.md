@@ -1,22 +1,37 @@
 # config.nix
 
-# Setup
-Clone flake
-```bash
-nix flake clone github:MorganKF/config.nix --dest ~/config.nix --extra-experimental-features "nix-command flakes"
-```
-## Darwin
-Install homebrew
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
+My personal Nix configuration for managing multiple hosts and programs across NixOS, nix-darwin, and home-manager environments.
 
-Run darwin rebuild
-```bash
-nix run nix-darwin/master#darwin-rebuild --extra-experimental-features "nix-command flakes" -- switch --flake ~/Documents/config.nix
-```
+This repo follows the dendritic pattern using [flake-parts](https://github.com/hercules-ci/flake-parts), where each feature/setting is encapsulated in its own file or module and then composed into full-featured system configurations.
 
-Increase maximum semiphores if building fails
-```bash
-sudo sysctl -w kern.posix.sem.max=40000
-```
+## Flake Outputs
+
+| Output | Location |
+|---|---|
+| `{nixos,darwin}Configuration` | `./modules/hosts` |
+| `homeConfiguration` | `./modules/users` |
+| `modules` | `./modules` |
+
+### Modules
+
+All feature sets used across my system configurations, exported through the flake module system.
+
+### Custom Packages
+
+Standalone packages and scripts available directly via `nix run`.
+
+| Package | Description | Run |
+|---|---|---|
+| `nvim` | Neovim nightly wrapped with my nixvim config | `nix run github:MorganKF/config.nix#nvim` |
+| `write-flake` | Update flake.nix inputs | `nix run .#write-flake` |
+
+## Resources
+
+- [NixOS Wiki](https://wiki.nixos.org)
+- [flake-parts](https://github.com/hercules-ci/flake-parts)
+- [dendritic](https://github.com/mightyiam/dendritic)
+- [dendritic-design-with-flake-parts](https://github.com/Doc-Steve/dendritic-design-with-flake-parts)
+- [nixvim](https://github.com/nix-community/nixvim)
+- [home-manager](https://github.com/nix-community/home-manager)
+- [NixOS-WSL](https://github.com/nix-community/NixOS-WSL)
+- [import-tree](https://github.com/vic/import-tree)
