@@ -10,9 +10,7 @@
         "usb_storage"
         "sd_mod"
       ];
-      boot.initrd.kernelModules = [ ];
       boot.kernelModules = [ "kvm-amd" ];
-      boot.extraModulePackages = [ ];
 
       fileSystems."/" = {
         device = "/dev/disk/by-uuid/cf0663e9-faaa-4215-8ef9-30b24688ac27";

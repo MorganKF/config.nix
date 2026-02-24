@@ -11,9 +11,6 @@
         "sd_mod"
         "sr_mod"
       ];
-      boot.initrd.kernelModules = [ ];
-      boot.kernelModules = [ ];
-      boot.extraModulePackages = [ ];
 
       fileSystems."/" = {
         device = "/dev/disk/by-uuid/764b349e-a8ce-4eb4-8504-92abe1d2775d";
