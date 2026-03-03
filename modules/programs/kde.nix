@@ -2,6 +2,9 @@
   flake.modules.nixos.kde =
     { pkgs, ... }:
     {
+      environment.systemPackages = with pkgs; [
+        vulkan-hdr-layer-kwin6
+      ];
       services = {
         udisks2.enable = true;
         xserver = {
