@@ -33,6 +33,17 @@
             thunderbird
             filezilla
           ];
+
+          programs = {
+            git = {
+              settings = {
+                user = {
+                  email = "morgan@mkf.dev";
+                  name = "MorganKF";
+                };
+              };
+            };
+          };
         };
     }
   ];
