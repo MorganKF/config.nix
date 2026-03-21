@@ -7,6 +7,7 @@
         system-desktop
         default-boot
         tablet
+        game-devices
         nvidia
         kde
       ];
