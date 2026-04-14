@@ -212,6 +212,9 @@
       slint_lsp.enable = true;
       vtsls.enable = true;
       gopls.enable = true;
+      html.enable = true;
+      emmet_language_server.enable = true;
+      cssls.enable = true;
       denols.enable = true;
       svelte.enable = true;
       biome = {
@@ -276,8 +279,8 @@
           stop_after_first = true;
         };
         css = {
-          __unkeyed-2 = "biome";
-          __unkeyed-3 = "prettier";
+          __unkeyed-1 = "biome";
+          __unkeyed-2 = "prettier";
           timeout_ms = 2000;
           stop_after_first = true;
         };
