@@ -33,6 +33,7 @@
             thunderbird
             filezilla
             libreoffice
+            heroic
           ];
 
           programs = {
