@@ -22,11 +22,18 @@
       time.timeZone = "America/St_Johns";
       i18n.defaultLocale = "en_CA.UTF-8";
 
-      # Cooler / RGB control
-      programs.coolercontrol.enable = true;
-      services = {
-        hardware.openrgb.enable = true;
+      # Enable ollama for system
+      services.ollama = {
+        enable = true;
+        package = pkgs.ollama-cuda;
       };
+      services.open-webui = {
+        enable = true;
+        port = 8888;
+      };
+      environment.systemPackages = with pkgs; [
+        opencode
+      ];
 
       # Reroute transmission files to spare drive
       services.transmission.settings.download-dir = "/storage/torrents";
