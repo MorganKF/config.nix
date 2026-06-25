@@ -6,7 +6,7 @@
   # Manage a user environment using Nix
 
   flake-file.inputs = {
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 

@@ -4,8 +4,7 @@
 
   flake-file.inputs = {
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
-    nixvim.url = "github:nix-community/nixvim";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    nixvim.url = "github:nix-community/nixvim/nixos-26.05";
   };
 
   # Export nixvim as a standalone runnable package
