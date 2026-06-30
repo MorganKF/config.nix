@@ -13,16 +13,13 @@
     ];
   };
 
-  # flake.modules.darwin.system-default = {
-  #   imports =
-  #     with inputs.self.modules.darwin;
-  #     [
-  #       system-minimal
-  #       determinate
-  #       home-manager
-  #       homebrew
-  #     ]
-  # };
+  flake.modules.darwin.system-default = {
+    imports = with inputs.self.modules.darwin; [
+      system-minimal
+      determinate
+      home-manager
+    ];
+  };
 
   # impermanence is not added by default to home-manager, because of missing Darwin implementation
   # for linux home-manager stand-alone configurations it has to be added manualy

@@ -18,7 +18,37 @@
         };
       };
 
-      darwin.morganf = { };
+      darwin.morganf = {
+        power.sleep = {
+          display = "never";
+          computer = 120;
+        };
+
+        system = {
+          defaults = {
+            dock = {
+              show-recents = false;
+              tilesize = 85;
+              autohide = true;
+            };
+
+            finder = {
+              AppleShowAllFiles = true;
+              AppleShowAllExtensions = true;
+              QuitMenuItem = true;
+              ShowPathbar = true;
+            };
+
+            NSGlobalDomain = {
+              AppleShowAllFiles = true;
+              AppleShowAllExtensions = true;
+            };
+          };
+        };
+
+        # Enable terminal touch id instead of passwd
+        security.pam.services.sudo_local.touchIdAuth = true;
+      };
 
       homeManager.morganf =
         { pkgs, ... }:
