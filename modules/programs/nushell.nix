@@ -8,8 +8,16 @@
       users.defaultUserShell = pkgs.nushell;
     };
 
-  flake.modules.darwin.nushell = {
+  flake.modules.darwin.nushell = { pkgs, ... }: {
     home-manager.sharedModules = [ inputs.self.modules.homeManager.nushell ];
+
+    # Forward zsh sessions directly into nushell
+    programs.zsh.enable = true;
+    programs.zsh.interactiveShellInit = ''
+      if [[ $(basename $(ps -p $PPID -o comm=)) != "nu" && -z ''${ZSH_EXECUTION_STRING+x} ]]; then
+        exec ${pkgs.nushell}/bin/nu
+      fi
+    '';
   };
 
   flake.modules.homeManager.nushell = {
