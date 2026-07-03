@@ -31,9 +31,6 @@
         enable = true;
         port = 8888;
       };
-      environment.systemPackages = with pkgs; [
-        opencode
-      ];
 
       # Reroute transmission files to spare drive
       services.transmission.settings.download-dir = "/storage/torrents";
