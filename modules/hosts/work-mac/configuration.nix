@@ -13,6 +13,7 @@
         aws-sam-cli
         ssm-session-manager-plugin
         fnm
+        bruno
       ];
 
       system.stateVersion = "26.05";
