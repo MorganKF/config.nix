@@ -10,7 +10,6 @@
       programs.nixvim = {
         enable = true;
         defaultEditor = true;
-        package = inputs.neovim-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default;
         imports = [ ./_config ];
       };
     };

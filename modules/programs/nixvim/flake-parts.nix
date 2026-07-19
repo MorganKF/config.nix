@@ -3,8 +3,9 @@
   # Configure Neovim with Nix
 
   flake-file.inputs = {
-    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
-    nixvim.url = "github:nix-community/nixvim/nixos-26.05";
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-26.05";
+    };
   };
 
   # Export nixvim as a standalone runnable package
@@ -12,7 +13,6 @@
     { system, pkgs, ... }:
     {
       packages.nvim = inputs.nixvim.legacyPackages.${system}.makeNixvim {
-        package = inputs.neovim-nightly.packages.${system}.default;
         imports = [ ./_config ];
       };
     };
