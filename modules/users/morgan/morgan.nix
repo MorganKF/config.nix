@@ -51,7 +51,7 @@
       };
 
       homeManager.morganf =
-        { pkgs, ... }:
+        { config, pkgs, ... }:
         {
           imports = with self.modules.homeManager; [
             system-desktop
@@ -73,6 +73,90 @@
                   email = "morgan@mkf.dev";
                   name = "MorganKF";
                 };
+              };
+            };
+            opencode = {
+              enable = true;
+              package = pkgs.unstable.opencode;
+              tui = {
+                theme = "tokyonight";
+              };
+              settings = {
+                lsp = {
+                  eslint.command = [
+                    "${pkgs.vscode-langservers-extracted}/bin/vscode-eslint-language-server"
+                    "--stdio"
+                  ];
+                  json = {
+                    command = [
+                      "${pkgs.vscode-langservers-extracted}/bin/vscode-json-language-server"
+                      "--stdio"
+                    ];
+                    extensions = [
+                      ".json"
+                      ".jsonc"
+                    ];
+                  };
+                  nil = {
+                    command = [ "${pkgs.nil}/bin/nil" ];
+                    extensions = [ ".nix" ];
+                  };
+                  typescript.command = [
+                    "${pkgs.typescript-language-server}/bin/typescript-language-server"
+                    "--stdio"
+                  ];
+                };
+                mcp = {
+                  context7 = {
+                    type = "remote";
+                    url = "https://mcp.context7.com/mcp";
+                    enabled = true;
+                  };
+
+                  git = {
+                    type = "local";
+                    command = [
+                      "${pkgs.unstable.uv}/bin/uvx"
+                      "mcp-server-git"
+                    ];
+                    enabled = true;
+                  };
+
+                  jcodemunch = {
+                    type = "local";
+                    command = [
+                      "${pkgs.unstable.uv}/bin/uvx"
+                      "jcodemunch-mcp"
+                    ];
+                    enabled = true;
+                  };
+
+                  memory = {
+                    type = "local";
+                    command = [
+                      "${pkgs.unstable.nodejs}/bin/npx"
+                      "-y"
+                      "@modelcontextprotocol/server-memory"
+                    ];
+                    environment = {
+                      MEMORY_FILE_PATH = "${config.xdg.configHome}/opencode/memory.jsonl";
+                      PATH = "${pkgs.unstable.nodejs}/bin:/bin:/usr/bin";
+                    };
+                    enabled = true;
+                  };
+
+                  gh_grep = {
+                    type = "remote";
+                    url = "https://mcp.grep.app";
+                    enabled = true;
+                  };
+                };
+
+                plugin = [
+                  "@ramarivera/opencode-model-announcer@latest"
+                  "envsitter-guard@latest"
+                  "@tarquinen/opencode-dcp@latest"
+                ];
               };
             };
           };
