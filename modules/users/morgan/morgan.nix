@@ -19,11 +19,6 @@
       };
 
       darwin.morganf = {
-        power.sleep = {
-          display = "never";
-          computer = 120;
-        };
-
         system = {
           defaults = {
             dock = {
