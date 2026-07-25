@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   flake.modules.homeManager.nixvim =
-    { pkgs, ... }:
+    { config, lib, ... }:
     {
       imports = [
         inputs.nixvim.homeModules.nixvim
@@ -11,6 +11,13 @@
         enable = true;
         defaultEditor = true;
         imports = [ ./_config ];
+      };
+
+      programs.nushell.environmentVariables = lib.mkIf (
+        config.programs.nixvim.enable && config.programs.nushell.enable
+      ) {
+        EDITOR = "nvim";
+        VISUAL = "nvim";
       };
     };
 }
