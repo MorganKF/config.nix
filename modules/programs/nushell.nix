@@ -20,23 +20,31 @@
     '';
   };
 
-  flake.modules.homeManager.nushell = {
-    home.shell.enableNushellIntegration = true;
-    programs = {
-      nushell = {
-        enable = true;
-        settings = {
-          show_banner = false;
+  flake.modules.homeManager.nushell =
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
+    {
+      home.shell.enableNushellIntegration = true;
+      programs = {
+        nushell = {
+          enable = true;
+          settings = {
+            show_banner = false;
+          };
         };
+        direnv = {
+          enable = true;
+          silent = true;
+          nix-direnv.enable = true;
+        };
+        carapace.enable = true;
+        starship.enable = true;
+        nix-your-shell.enable = true;
+        zellij.settings.default_shell = lib.mkIf config.programs.zellij.enable "${pkgs.nushell}/bin/nu";
       };
-      direnv = {
-        enable = true;
-        silent = true;
-        nix-direnv.enable = true;
-      };
-      carapace.enable = true;
-      starship.enable = true;
-      nix-your-shell.enable = true;
     };
-  };
 }
