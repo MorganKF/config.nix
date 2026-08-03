@@ -80,6 +80,8 @@
                 "${pkgs.unstable.uv}/bin/uvx"
                 "--python"
                 "${pkgs.unstable.python313}/bin/python3"
+                "--with"
+                "mcp<2"
                 "mcp-server-git"
               ];
               environment = {
