@@ -20,11 +20,19 @@
   ];
   extraConfigLua = ''
     if vim.env.SSH_TTY ~= nil or vim.env.SSH_CLIENT ~= nil then
+      local function paste()
+        return 0
+      end
+
       vim.g.clipboard = {
         name = 'OSC 52',
         copy = {
           ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
           ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+        },
+        paste = {
+          ['+'] = paste,
+          ['*'] = paste,
         },
       }
     end
