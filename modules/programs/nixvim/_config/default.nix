@@ -40,6 +40,7 @@
   globals = {
     mapleader = " ";
     maplocalleader = "\\";
+    config_nix.format_on_save = true;
     markdown_fenced_languages = [
       "ts=typescript"
     ];

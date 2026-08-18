@@ -42,6 +42,24 @@
       options.silent = true;
     }
 
+    # Toggle format on save
+    {
+      mode = "n";
+      key = "<leader>cf";
+      action.__raw = ''
+        function()
+          local config = vim.g.config_nix
+          config.format_on_save = not config.format_on_save
+          vim.g.config_nix = config
+          vim.notify('Format on save ' .. (config.format_on_save and 'enabled' or 'disabled'))
+        end
+      '';
+      options = {
+        desc = "Toggle format on save";
+        silent = true;
+      };
+    }
+
     # Better up/down
     {
       mode = [

@@ -194,36 +194,41 @@
     conform-nvim = {
       enable = true;
       settings = {
-        format_on_save = {
-          timeout_ms = 1000;
-          lsp_format = "fallback";
-        };
+        format_on_save.__raw = ''
+          function()
+            if not vim.g.config_nix.format_on_save then
+              return
+            end
+            return { timeout_ms = 1000, lsp_format = 'fallback' }
+          end
+        '';
         formatters_by_ft = {
+          cs = [ "csharpier" ];
           nix = [ "nixfmt" ];
           zig = [ "zig fmt" ];
           javascript = {
-            __unkeyed-1 = "biome";
-            __unkeyed-2 = "prettier";
+            __unkeyed-1 = "prettier";
+            __unkeyed-2 = "biome";
             timeout_ms = 2000;
             stop_after_first = true;
           };
           typescript = {
             __unkeyed-1 = "deno fmt";
-            __unkeyed-2 = "biome";
-            __unkeyed-3 = "prettier";
+            __unkeyed-2 = "prettier";
+            __unkeyed-3 = "biome";
             timeout_ms = 2000;
             stop_after_first = true;
           };
           javascriptreact = {
-            __unkeyed-2 = "biome";
             __unkeyed-1 = "prettier";
+            __unkeyed-2 = "biome";
             timeout_ms = 2000;
             stop_after_first = true;
           };
           typescriptreact = {
             __unkeyed-1 = "deno fmt";
-            __unkeyed-2 = "biome";
-            __unkeyed-3 = "prettier";
+            __unkeyed-2 = "prettier";
+            __unkeyed-3 = "biome";
             timeout_ms = 2000;
             stop_after_first = true;
           };
