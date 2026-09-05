@@ -32,6 +32,7 @@
       programs = {
         nushell = {
           enable = true;
+          environmentVariables = config.home.sessionVariables;
           settings = {
             show_banner = false;
           };
