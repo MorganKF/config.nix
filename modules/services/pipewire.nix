@@ -15,9 +15,9 @@
           alsa.enable = true;
           alsa.support32Bit = true;
           pulse.enable = true;
-          extraConfig.pipewire.noresample = {
+          extraConfig.pipewire.clock-rate = {
             "context.properties" = {
-              "default.clock.rate" = 192000;
+              "default.clock.rate" = 48000;
               "default.clock.allowed-rates" = [
                 44100
                 48000
