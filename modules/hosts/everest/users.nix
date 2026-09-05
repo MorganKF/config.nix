@@ -19,6 +19,8 @@
 
       home-manager.users.morganf = {
         home.packages = with pkgs; [ unstable.osu-lazer-bin ];
+          proton-pass-cli
+        home.sessionVariables.PROTON_PASS_LINUX_KEYRING = "dbus";
       };
     };
 }
