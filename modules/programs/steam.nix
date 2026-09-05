@@ -3,7 +3,7 @@
     { pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [
-        protonup-qt
+        unstable.protonup-qt
         mangohud
         lsfg-vk
         lsfg-vk-ui
