@@ -4,6 +4,12 @@
     {
       environment.systemPackages = with pkgs; [
         vulkan-hdr-layer-kwin6
+        (kdePackages.spectacle.override {
+          tesseractLanguages = [ "eng" ];
+        })
+        (tesseract5.override {
+          enableLanguages = [ "eng" ];
+        })
       ];
       services = {
         udisks2.enable = true;
