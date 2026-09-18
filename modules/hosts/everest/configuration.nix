@@ -22,15 +22,10 @@
       time.timeZone = "America/St_Johns";
       i18n.defaultLocale = "en_CA.UTF-8";
 
-      # Enable ollama for system
-      services.ollama = {
-        enable = true;
-        package = pkgs.ollama-cuda;
-      };
-      services.open-webui = {
-        enable = true;
-        port = 8888;
-      };
+      # services.open-webui = {
+      #   enable = true;
+      #   port = 8888;
+      # };
 
       # Reroute transmission files to spare drive
       services.transmission.settings.download-dir = "/storage/torrents";
